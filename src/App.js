@@ -4,19 +4,11 @@ import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
 import * as am4plugins_timeline from "@amcharts/amcharts4/plugins/timeline";
 import * as am4plugins_bullets from "@amcharts/amcharts4/plugins/bullets";
-import "./App.css";
 
 /* Chart code */
 // Themes begin
 am4core.useTheme(am4themes_animated);
 // Themes end
-
-// list of icons used in the timeline chart
-let icons = {
-  update: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft.svg",
-  live: "https://d2k0c7enpjtp6n.cloudfront.net/icons/publish.svg",
-  restore: "https://d2k0c7enpjtp6n.cloudfront.net/icons/recover.svg",
-};
 
 const App = () => {
   const chart = useRef(null);

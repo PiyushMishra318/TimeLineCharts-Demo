@@ -1,10 +1,12 @@
 import React, { useRef, useLayoutEffect, useEffect, useState } from "react";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
-import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+import am4themes_animated from "@amcharts/amcharts4/themes/amchartsdark";
 import * as am4plugins_timeline from "@amcharts/amcharts4/plugins/timeline";
 import * as am4plugins_bullets from "@amcharts/amcharts4/plugins/bullets";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
+import dayjs from "dayjs";
 /* Chart code */
 // Themes begin
 am4core.useTheme(am4themes_animated);
@@ -14,89 +16,209 @@ const App = () => {
   const chart = useRef(null);
 
   const [cords, setCords] = useState({ x: 0, y: 0 });
+  const [data, setData] = useState([
+    {
+      category: "",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc8c67",
+      start: "2021-05-28T06:18:12.199Z",
+      end: "2021-05-28T06:18:26.452Z",
+      text: "delex Initialized",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "53f677043af15d78dbad12293794b96f85e65d52",
+      files_modified: 53,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc6788",
+      start: "2021-05-28T06:19:34.564Z",
+      end: "2021-05-28T06:19:43.040Z",
+      text: "Project Published",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "651fe2384361678c0500cd78d3a630812516f4e6",
+      files_modified: 50,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc6788",
+      start: "2021-05-28T06:19:34.564Z",
+      end: "2021-05-28T06:19:55.707Z",
+      text: "Project Published",
+      author: {},
+      ip: "103.54.145.89",
+      files_modified: 1,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc6788",
+      start: "2021-05-28T06:58:42.694Z",
+      end: "2021-05-28T06:58:46.546Z",
+      text: "undefined Published",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "b82f2281a9f1ff423dd71ff286e9a0a1c47d66f0",
+      files_modified: 1,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc6788",
+      start: "2021-05-28T07:02:08.283Z",
+      end: "2021-05-28T07:02:11.863Z",
+      text: "undefined Published",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "0dd8de3b43e42ae1e86c49da85dbee5923c73c26",
+      files_modified: 1,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc6788",
+      start: "2021-05-28T07:03:46.042Z",
+      end: "2021-05-28T07:03:49.749Z",
+      text: "undefined Published",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "db5b3b60cd6c02472aa9019a2a9b35579ebccaa0",
+      files_modified: 1,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc6788",
+      start: "2021-05-28T07:04:53.936Z",
+      end: "2021-05-28T07:04:57.399Z",
+      text: "font-awesome Published",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "fbcfe79b2f336cccbe961cdce718ae9a5cc0a55b",
+      files_modified: 1,
+    },
+    {
+      category: "",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc8c67",
+      start: "2021-05-28T07:16:48.074Z",
+      end: "2021-05-28T07:16:52.092Z",
+      text: "test4 duplicated",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "9fa0c3fdeb8e83dd3da7b8769d15fb2c8c902537",
+      files_modified: 1,
+    },
+    {
+      category: "",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc8c67",
+      start: "2021-05-28T09:13:53.025Z",
+      end: "2021-05-28T09:14:00.283Z",
+      text: "index updated",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "d9a406f1c58e5e60e962860c6d1c89cac91ee6b9",
+      files_modified: 1,
+    },
+    {
+      category: "",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc8c67",
+      start: "2021-05-28T09:21:45.364Z",
+      end: "2021-05-28T09:21:48.866Z",
+      text: "index updated",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "907eb9d5b5355abd2d2cb6e5eaba09212c229345",
+      files_modified: 1,
+    },
+    {
+      category: "",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc8c67",
+      start: "2021-05-28T09:23:26.315Z",
+      end: "2021-05-28T09:23:29.617Z",
+      text: "test4 updated",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "d304a7babbe660fd0b336bd1068e6cc7dd665d8b",
+      files_modified: 1,
+    },
+    {
+      category: "",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc8c67",
+      start: "2021-05-28T09:25:36.805Z",
+      end: "2021-05-28T09:25:41.079Z",
+      text: "index connected pages updated",
+      author: {},
+      ip: "103.54.145.89",
+      commit_sha: "1442f8464e7b9fbd3903a2400dc3491db166ecb6",
+      files_modified: 1,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/draft-2.svg",
+      color: "#dc6788",
+      start: "2021-05-28T09:33:42.330Z",
+      end: "2021-05-28T09:34:05.794Z",
+      text: "index Published",
+      author: {},
+      ip: "103.54.145.89",
+      files_modified: 1,
+    },
+    {
+      category: "live",
+      icon: "https://d2k0c7enpjtp6n.cloudfront.net/icons/publish.svg",
+      color: "#dc6788",
+      start: "2021-06-05T06:22:57.539Z",
+      end: "2021-06-05T06:23:16.557Z",
+      text: "index Published",
+      author: {},
+      os: "Windows",
+      ip: "103.54.145.13",
+      files_modified: 1,
+    },
+  ]);
+
+  const calculateBaseInterval = (data) => {
+    let av = 0;
+    data.map((item) => {
+      av += new Date(item.end).getTime() - new Date(item.start).getTime();
+    });
+    av = av / data.length;
+    if (av < 1000 * 60) {
+      return { count: 1, timeUnit: "minute" };
+    } else if (av < 5 * 1000 * 60 && av > 1000 * 60) {
+      return { count: 1, timeUnit: "minute" };
+    } else if (av < 10 * 1000 * 60 && av > 5 * 1000 * 60) {
+      return { count: 5, timeUnit: "minute" };
+    } else if (av < 20 * 1000 * 60 && av > 10 * 1000 * 60) {
+      return { count: 10, timeUnit: "minute" };
+    } else if (av < 30 * 1000 * 60 && av > 15 * 1000 * 60) {
+      return { count: 15, timeUnit: "minute" };
+    } else if (av < 60 * 1000 * 60 && av > 30 * 1000 * 60) {
+      return { count: 30, timeUnit: "minute" };
+    } else if (av < 3 * 60 * 1000 * 60 && av > 60 * 1000 * 60) {
+      return { count: 1, timeUnit: "hour" };
+    } else {
+      console.log("over 3 hours");
+      return { count: 3, timeUnit: "hour" };
+    }
+  };
+
   const [contextItem, setContextItem] = useState({ show: false });
 
-  let os = [
-    { name: "Windows Phone", value: "Windows Phone", version: "OS" },
-    { name: "Windows", value: "Win", version: "NT" },
-    { name: "iPhone", value: "iPhone", version: "OS" },
-    { name: "iPad", value: "iPad", version: "OS" },
-    { name: "Kindle", value: "Silk", version: "Silk" },
-    { name: "Android", value: "Android", version: "Android" },
-    { name: "PlayBook", value: "PlayBook", version: "OS" },
-    { name: "BlackBerry", value: "BlackBerry", version: "/" },
-    { name: "Macintosh", value: "Mac", version: "OS X" },
-    { name: "Linux", value: "Linux", version: "rv" },
-    { name: "Palm", value: "Palm", version: "PalmOS" },
-  ];
-
-  let browser = [
-    { name: "Chrome", value: "Chrome", version: "Chrome" },
-    { name: "Firefox", value: "Firefox", version: "Firefox" },
-    { name: "Safari", value: "Safari", version: "Version" },
-    { name: "Internet Explorer", value: "MSIE", version: "MSIE" },
-    { name: "Opera", value: "Opera", version: "Opera" },
-    { name: "BlackBerry", value: "CLDC", version: "CLDC" },
-    { name: "Mozilla", value: "Mozilla", version: "Mozilla" },
-  ];
-
-  let header = [
-    navigator.platform,
-    navigator.userAgent,
-    navigator.appVersion,
-    navigator.vendor,
-    window.opera,
-  ];
-
-  function matchItem(string, data) {
-    var i = 0,
-      j = 0,
-      html = "",
-      regex,
-      regexv,
-      match,
-      matches,
-      version;
-
-    for (i = 0; i < data.length; i += 1) {
-      regex = new RegExp(data[i].value, "i");
-      match = regex.test(string);
-      if (match) {
-        regexv = new RegExp(data[i].version + "[- /:;]([d._]+)", "i");
-        matches = string.match(regexv);
-        version = "";
-        if (matches) {
-          if (matches[1]) {
-            matches = matches[1];
-          }
-        }
-        if (matches) {
-          matches = matches.split(/[._]+/);
-          for (j = 0; j < matches.length; j += 1) {
-            if (j === 0) {
-              version += matches[j] + ".";
-            } else {
-              version += matches[j];
-            }
-          }
-        } else {
-          version = "0";
-        }
-        return {
-          name: data[i].name,
-          version: parseFloat(version),
-        };
-      }
-    }
-    return { name: "unknown", version: 0 };
-  }
-
-  useEffect(() => {
-    let agent = header.join(" ");
-    let os_1 = matchItem(agent, os);
-    let browser_1 = matchItem(agent, browser);
-    console.log(os_1, browser_1);
-  }, []);
+  const processDataSet = (data) => {
+    return data.map((obj, i) => {
+      if (i + 1 < data.length) obj["end"] = data[i + 1].start;
+      return obj;
+    });
+  };
 
   useLayoutEffect(() => {
     // initialize timeline chart
@@ -108,162 +230,19 @@ const App = () => {
     // if set to true icons dissapear
     x.maskBullets = false;
 
+    x.background.fill = "#303950";
+
     // color set to use in data points
     // let colorSet = new am4core.ColorSet();
 
     // format for dates in data set
     x.dateFormatter.inputDateFormat = "YYYY-MM-DDTHH:mm:ss.sssZ";
 
-    // dont understand what this is
+    // alternate for inputdateformat
     x.dateFormatter.dateFormat = "HH";
 
     // data set for rendering values on the timeline chart
-    x.data = [
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:01:48.541Z",
-        end: "2019-01-10T08:01:48.541Z",
-        icon: icons.live,
-        text: "Wake up!",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:10:48.541Z",
-        end: "2019-01-10T08:10:48.541Z",
-        icon: icons.live,
-        text: "Drink water",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:15:48.541Z",
-        end: "2019-01-10T08:15:48.541Z",
-        icon: icons.live,
-        text: "Exercise",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:18:48.541Z",
-        end: "2019-01-10T08:18:48.541Z",
-        icon: icons.live,
-        text: "Have breakfast",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:20:48.541Z",
-        end: "2019-01-10T08:20:48.541Z",
-        icon: icons.live,
-        text: "Drive to work",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:10:48.541Z",
-        end: "2019-01-10T08:10:48.541Z",
-        icon: icons.live,
-        text: "Work",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:25:48.541Z",
-        end: "2019-01-10T08:25:48.541Z",
-        icon: icons.live,
-        text: "Coffee",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:40:48.541Z",
-        end: "2019-01-10T08:40:48.541Z",
-        icon: icons.live,
-        text: "Dinner",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:34:48.541Z",
-        end: "2019-01-10T08:34:48.541Z",
-        icon: icons.live,
-        text: "Coffee",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:44:48.541Z",
-        end: "2019-01-10T08:44:48.541Z",
-        icon: icons.live,
-        text: "Drive home",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:04:48.541Z",
-        end: "2019-01-10T08:04:48.541Z",
-        icon: icons.live,
-        text: "Home!",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:50:48.541Z",
-        end: "2019-01-10T08:50:48.541Z",
-        icon: icons.live,
-        text: "Read a bit",
-      },
-      {
-        category: "live",
-        color: "#dc6788",
-        start: "2019-01-10T08:53:48.541Z",
-        end: "2019-01-10T08:53:48.541Z",
-        icon: icons.live,
-        text: "Have a beer",
-      },
-      {
-        category: "",
-        color: "#dc8c67",
-        start: "2019-01-10T08:13:48.541Z",
-        end: "2019-01-10T08:13:48.541Z",
-        icon: icons.update,
-        text: "Have another beer",
-      },
-      {
-        category: "",
-        color: "#dc8c67",
-        start: "2019-01-10T08:48:48.541Z",
-        end: "2019-01-10T08:48:48.541Z",
-        icon: icons.update,
-        text: "Dance!",
-      },
-      {
-        category: "",
-        color: "#dc8c67",
-        start: "2019-01-10T08:32:48.541Z",
-        end: "2019-01-10T08:32:48.541Z",
-        icon: icons.update,
-        text: "Martini!",
-      },
-      {
-        category: "",
-        color: "#dc8c67",
-        start: "2019-01-10T08:30:48.541Z",
-        end: "2019-01-10T08:30:48.541Z",
-        icon: icons.update,
-        text: "Damn...",
-      },
-      {
-        category: "",
-        color: "#dc8c67",
-        start: "2019-01-10T08:57:48.541Z",
-        end: "2019-01-10T08:57:48.541Z",
-        icon: icons.update,
-        text: "Bye bye",
-      },
-    ];
+    x.data = processDataSet(data);
 
     // fontsize for text inside the timeline chart
     x.fontSize = 10;
@@ -278,9 +257,9 @@ const App = () => {
 
     // some lines are disabled when this is set to true
     categoryAxis.renderer.grid.template.disabled = true;
-    // i have no idea what this is
+    // padding for labels
     categoryAxis.renderer.labels.template.paddingRight = 25;
-    // again no idea
+    // distance between labels
     categoryAxis.renderer.minGridDistance = 10;
     // this kinda messus up the ui so keeping this at 10 is ideal
     categoryAxis.renderer.innerRadius = 10;
@@ -296,7 +275,9 @@ const App = () => {
     // can't tell if any of these matter
     dateAxis.renderer.autoScale = false;
     dateAxis.renderer.autoCenter = true;
-    dateAxis.renderer.minGridDistance = 200;
+    dateAxis.renderer.minGridDistance = 50;
+
+    let baseInterval = calculateBaseInterval(data);
 
     // unti distance between every point on the date scale
     dateAxis.baseInterval = { count: 1, timeUnit: "minute" };
@@ -307,11 +288,20 @@ const App = () => {
     // changes the stroke count and density set to original right ow can be changes based on use cases
     dateAxis.renderer.line.strokeDasharray = "1,4";
 
+    // dateAxis.renderer.line.durationFormatter.durationFormat = "yyyy-MM-dd";
+
     // opacity of strokes set to  for transparency
     dateAxis.renderer.line.strokeOpacity = 0.5;
 
+    // no effect
+    // dateAxis.tooltip.autoTextColor = true;
+    // dateAxis.tooltip.dateFormatter.dateFormat = "dd-mm-yyyy";
+    // dateAxis.tooltip.label.text = "dd-mm-yyyy";
+    // dateAxis.tooltip.tooltipText = "{dataX}";
+
     // didnt seem to matter much on the ui
     dateAxis.tooltip.background.fillOpacity = 0.2;
+    dateAxis.tooltip.background.fill = "white";
     dateAxis.tooltip.background.cornerRadius = 5;
 
     // this is just the background color for the tooltip i think not really sure
@@ -323,12 +313,43 @@ const App = () => {
     dateAxis.tooltip.label.paddingTop = 7;
 
     // dont know what these are for
-    dateAxis.endLocation = -0.5;
-    dateAxis.startLocation = -0.5;
+    dateAxis.endLocation = 1;
+    dateAxis.startLocation = 1;
 
     // important this is the start and end point for the timeline chart
-    dateAxis.min = new Date(2019, 0, 9, 23, 55).getTime();
-    dateAxis.max = new Date(2019, 0, 11, 7, 10).getTime();
+
+    dateAxis.strictMinMax = true;
+
+    if (data.length > 0) {
+      if (data.length < 25) dateAxis.min = new Date(data[0].start).getTime();
+      else dateAxis.min = new Date(data[data.length - 25].start).getTime();
+      dateAxis.max = new Date(data[data.length - 1].end).getTime();
+
+      if (dateAxis.max - dateAxis.min < 86400000 / 2) {
+        let recordDate = new Date(dateAxis.max);
+        dateAxis.max = new Date(recordDate.setHours(23, 59, 59, 999)).getTime();
+        dateAxis.min = new Date(
+          new Date(recordDate.setDate(recordDate.getDate() - 1)).setHours(
+            0,
+            0,
+            0,
+            0
+          )
+        ).getTime();
+      }
+    } else {
+      dateAxis.max = new Date(new Date().setHours(23, 59, 59, 999)).getTime();
+      dateAxis.min = new Date(
+        new Date(new Date().setDate(new Date().getDate() - 1)).setHours(
+          0,
+          0,
+          0,
+          0
+        )
+      ).getTime();
+    }
+
+    console.log(new Date(dateAxis.min), new Date(dateAxis.max));
 
     // the text for every x interval in date axis
     let labelTemplate = dateAxis.renderer.labels.template;
@@ -452,6 +473,12 @@ const App = () => {
     x.scrollbarX.isMeasured = false;
     // opacoty for the scrollbar
     x.scrollbarX.opacity = 0.5;
+    x.scrollbarX.fill = "#4f566a";
+
+    x.scrollbarX.startGrip.background.fill = "#6794dc";
+    x.scrollbarX.startGrip.fill = "#6771dc";
+    x.scrollbarX.endGrip.background.fill = "#6794dc";
+    x.scrollbarX.endGrip.fill = "#6771dc";
 
     // cursor init
     let cursor = new am4plugins_timeline.CurveCursor();
@@ -483,19 +510,20 @@ const App = () => {
     //   }, 2000);
     // });
     imageBullet1.events.on(
-      "hit",
+      "rightclick",
       function (params) {
+        params.event.preventDefault();
         setCords({
           x:
             params.event.clientX +
             document.body.scrollLeft +
             document.documentElement.scrollLeft -
-            0,
+            250,
           y:
             params.event.clientY +
             document.body.scrollTop +
             document.documentElement.scrollTop -
-            0,
+            100,
         });
         setContextItem({
           ...params.target.dataItem._dataContext,
@@ -631,16 +659,103 @@ const App = () => {
       {contextItem.show && (
         <div
           className="cms-context-menu cms-shadow"
-          // onMouseLeave={() => clearContext({ ...file, show: false })}
-          // onContextMenu={(e) => e.preventDefault()}
+          onMouseLeave={() => setContextItem({ show: false })}
+          onContextMenu={(e) => e.preventDefault()}
           style={{
             top: `${cords.y}px`,
             left: `${cords.x}px`,
             position: "absolute",
             zIndex: 9999,
+            width: "300px",
+            padding: "15px",
+            marginBottom: "50px",
+            maxHeight: "300px",
           }}
         >
-          {JSON.stringify(contextItem)}
+          <div style={{ position: "relative" }}>
+            <div
+              style={{
+                position: "absolute",
+                top: "0px",
+                right: "0px",
+                cursor: "pointer",
+              }}
+              onClick={() => setContextItem({ show: false })}
+            >
+              <FontAwesomeIcon icon={faTimesCircle} />
+            </div>
+            <div>Event Name: {contextItem.text}</div>
+            <div>
+              Date-Time: {dayjs(contextItem.start).format("DD/MM/YYYY HH:mm")}
+            </div>
+            <div>IP: {contextItem.ip}</div>
+            <div>Author Name: {contextItem.author.name}</div>
+            <div>Author Email: {contextItem.author.email}</div>
+            <div>Browser: {contextItem.browser}</div>
+            <div>Device: {contextItem.os}</div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+              }}
+            >
+              <button
+                // id="button"
+                // data-react-tag="anchor"
+                // style={{ padding: "10px", color: "#fff" }}
+                // className="cms-primary-cta cms-btn-triggerhover cms-mu-uploadbtn w-a"
+                style={{
+                  marginTop: "10px",
+                  paddingTop: "8px",
+                  paddingBottom: "8px",
+                  color: "white",
+                  background: "red",
+                  display: "flex",
+                  width: "auto",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  borderRadius: "3px",
+                  fontSize: "0.8rem",
+                  fontWeight: "600",
+                  letterSpacing: "0.3px",
+                  border: "1px solid red",
+                }}
+                name="button"
+                // value="Upload"
+                // onClick={handleSubmit}
+              >
+                Restore
+              </button>
+              <div></div>
+              <button
+                // id="button"
+                // data-react-tag="anchor"
+                // style={{ padding: "10px", color: "#fff" }}
+                style={{
+                  marginTop: "10px",
+                  paddingTop: "8px",
+                  paddingBottom: "8px",
+                  color: "white",
+                  background: "red",
+                  display: "flex",
+                  width: "auto",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  borderRadius: "3px",
+                  fontSize: "0.8rem",
+                  fontWeight: "600",
+                  letterSpacing: "0.3px",
+                  border: "1px solid red",
+                }}
+                // className="cms-primary-cta cms-btn-triggerhover cms-mu-uploadbtn w-a"
+                name="button"
+                // value="Upload"
+                // onClick={handleSubmit}
+              >
+                Preview
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
